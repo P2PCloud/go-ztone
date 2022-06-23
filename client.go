@@ -4,11 +4,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 )
 
 const authHeaderName = "X-ZT1-Auth"
+const defaultKeyLocation = "/var/lib/zerotier-one/authtoken.secret"
 
 var (
 	// APIVersion is the version of this library
@@ -21,9 +23,10 @@ var (
 
 // Client is a http client tailored to talk to ZeroTier One.
 type Client struct {
-	baseURL *url.URL
-	apiKey  string
-	client  *http.Client
+	baseURL  *url.URL
+	apiKey   string
+	client   *http.Client
+	publicId string
 }
 
 // NewClient creates a new *Client. An API key must be passed at this time.
@@ -34,6 +37,14 @@ func NewClient(apiKey string) *Client {
 		apiKey:  apiKey,
 		baseURL: u,
 	}
+}
+
+func NewClientFromDefaultKey() (*Client, error) {
+	keyBytes, err := ioutil.ReadFile(defaultKeyLocation)
+	if err != nil {
+		return nil, err
+	}
+	return NewClient(string(keyBytes)), nil
 }
 
 // SetBaseURL sets the base URL to the value.

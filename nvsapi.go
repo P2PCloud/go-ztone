@@ -24,30 +24,41 @@ type NetworkStatus struct {
 
 // Network is the data structure that encapsulates a network.
 type Network struct {
-	ID                string   `json:"id"`
-	LegacyNetworkID   string   `json:"nwid"`
-	MAC               string   `json:"mac"`
-	Name              string   `json:"name"`
-	Status            string   `json:"status"`
-	Type              string   `json:"type"`
-	MTU               int      `json:"mtu"`
-	DHCP              bool     `json:"dhcp"`
-	Bridge            bool     `json:"bridge"`
-	BroadcastEnabled  bool     `json:"broadcastEnabled"`
-	PortError         int      `json:"portError"`
-	NetconfRevision   int64    `json:"netconfRevision"`
-	AssignedAddresses []string `json:"assignedAddresses"`
-	Routes            []Route  `json:"routes"`
-	PortDeviceName    string   `json:"portDeviceName"`
-	AllowManaged      bool     `json:"allowManaged"`
-	AllowGlobal       bool     `json:"allowGlobal"`
-	AllowDefault      bool     `json:"allowDefault"`
-	AllowDNS          bool     `json:"allowDNS"`
+	ID                string             `json:"id,omitempty"`
+	LegacyNetworkID   string             `json:"nwid,omitempty"`
+	MAC               string             `json:"mac,omitempty"`
+	Name              string             `json:"name,omitempty"`
+	Status            string             `json:"status,omitempty"`
+	Type              string             `json:"type,omitempty"`
+	MTU               int                `json:"mtu,omitempty"`
+	DHCP              bool               `json:"dhcp,omitempty"`
+	Bridge            bool               `json:"bridge,omitempty"`
+	BroadcastEnabled  bool               `json:"broadcastEnabled,omitempty"`
+	PortError         int                `json:"portError,omitempty"`
+	NetconfRevision   int64              `json:"netconfRevision,omitempty"`
+	AssignedAddresses []string           `json:"assignedAddresses,omitempty"`
+	Routes            []Route            `json:"routes,omitempty"`
+	PortDeviceName    string             `json:"portDeviceName,omitempty"`
+	AllowManaged      bool               `json:"allowManaged,omitempty"`
+	AllowGlobal       bool               `json:"allowGlobal,omitempty"`
+	AllowDefault      bool               `json:"allowDefault,omitempty"`
+	AllowDNS          bool               `json:"allowDNS,omitempty"`
+	V4AssignMode      V4AssignMode       `json:"v4AssignMode,omitempty"`
+	IPAssignmentPools []IPAssignmentPool `json:"ipAssignmentPools,omitempty"`
+}
+
+type V4AssignMode struct {
+	Zt bool `json:"zt"`
+}
+
+type IPAssignmentPool struct {
+	IPRangeEnd   string `json:"ipRangeEnd"`
+	IPRangeStart string `json:"ipRangeStart"`
 }
 
 // Route encapsulates network routes. See Network.
 type Route struct {
-	Target string `json:"target"`
+	Target string `json:"target,omitempty"`
 	Via    string `json:"via"`
 	Flags  int64  `json:"flags"`
 	Metric int64  `json:"metric"`
@@ -129,7 +140,7 @@ func (c *Client) LeaveNetwork(id string) error {
 	}
 
 	if resp.StatusCode != 200 {
-		return fmt.Errorf("Response status was not 200, was %d", resp.StatusCode)
+		return fmt.Errorf("response status was not 200, was %d", resp.StatusCode)
 	}
 
 	return nil
