@@ -4,11 +4,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 )
 
 const authHeaderName = "X-ZT1-Auth"
+const defaultKeyLocation = "/var/lib/zerotier-one/authtoken.secret"
 
 var (
 	// APIVersion is the version of this library
@@ -34,6 +36,14 @@ func NewClient(apiKey string) *Client {
 		apiKey:  apiKey,
 		baseURL: u,
 	}
+}
+
+func NewClientFromDefaultKey() (*Client, error) {
+	keyBytes, err := ioutil.ReadFile(defaultKeyLocation)
+	if err != nil {
+		return nil, err
+	}
+	return NewClient(string(keyBytes)), nil
 }
 
 // SetBaseURL sets the base URL to the value.
