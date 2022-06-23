@@ -144,3 +144,19 @@ func (c *Client) ControllerListNetworkIds() ([]string, error) {
 	var values []string
 	return values, c.wrapJSON("/controller/network", &values)
 }
+
+var SaneNetworkDefaults = &Network{
+	Name: "default",
+	Routes: []Route{
+		Route{Target: "10.244.0.0/16"},
+	},
+	V4AssignMode: V4AssignMode{
+		Zt: true,
+	},
+	IPAssignmentPools: []IPAssignmentPool{
+		IPAssignmentPool{
+			IPRangeStart: "10.244.0.1",
+			IPRangeEnd:   "10.244.255.254",
+		},
+	},
+}
