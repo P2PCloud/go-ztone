@@ -140,7 +140,7 @@ func (c *Client) ControllerUpdateNetworkMember(networkId string, netMember *Cont
 }
 
 // Lists network ids on this controller
-func (c *Client) ControllerListNetworkIds() (*[]string, error) {
+func (c *Client) ControllerListNetworkIds() ([]string, error) {
 	var values []string
-	return &values, c.wrapJSON("/controller/network", &values)
+	return values, c.wrapJSON("/controller/network", &values)
 }

@@ -38,7 +38,7 @@ func TestCreateNetworkAndAuthorize(t *testing.T) {
 	//check that the network is in the list of networks
 	networkIds, err := c.ControllerListNetworkIds()
 	require.NoError(t, err)
-	require.Subset(t, *networkIds, []string{newNet.ID})
+	require.Subset(t, networkIds, []string{newNet.ID})
 
 	//authorize
 	member, err := c.ControllerAuthorizeMember(newNet.ID, "000000000a", true)
