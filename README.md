@@ -57,7 +57,8 @@ You can see examples in the `examples/` directory. There are two:
 # Author
 
 Originally created by Erik Hollensbe <github@hollensbe.org>
-Edited by Ilia S 
+
+Maintained by [p2pcloud team](https://p2pcloud.io)
 
 # License
 
