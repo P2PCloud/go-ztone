@@ -23,9 +23,10 @@ var (
 
 // Client is a http client tailored to talk to ZeroTier One.
 type Client struct {
-	baseURL *url.URL
-	apiKey  string
-	client  *http.Client
+	baseURL  *url.URL
+	apiKey   string
+	client   *http.Client
+	publicId string
 }
 
 // NewClient creates a new *Client. An API key must be passed at this time.

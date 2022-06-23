@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	one "github.com/erikh/go-ztone"
+	one "github.com/p2pcloud/go-ztone"
 )
 
 func errExit() {

@@ -1,4 +1,4 @@
-module github.com/erikh/go-ztone
+module github.com/p2pcloud/go-ztone
 
 go 1.16
 
