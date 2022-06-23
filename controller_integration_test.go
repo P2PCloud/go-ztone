@@ -35,6 +35,11 @@ func TestCreateNetworkAndAuthorize(t *testing.T) {
 	require.Equal(t, "10.88.239.1", newNet.IPAssignmentPools[0].IPRangeStart)
 	require.Equal(t, "10.88.239.254", newNet.IPAssignmentPools[0].IPRangeEnd)
 
+	//check that the network is in the list of networks
+	networkIds, err := c.ControllerListNetworkIds()
+	require.NoError(t, err)
+	require.Subset(t, *networkIds, []string{newNet.ID})
+
 	//authorize
 	member, err := c.ControllerAuthorizeMember(newNet.ID, "000000000a", true)
 	require.NoError(t, err)

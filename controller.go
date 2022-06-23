@@ -138,3 +138,9 @@ func (c *Client) ControllerUpdateNetworkMember(networkId string, netMember *Cont
 
 	return result, nil
 }
+
+// Lists network ids on this controller
+func (c *Client) ControllerListNetworkIds() (*[]string, error) {
+	var values []string
+	return &values, c.wrapJSON("/controller/network", &values)
+}
