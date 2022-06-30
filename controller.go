@@ -16,7 +16,7 @@ type ControllerNetworkMember struct {
 	Capabilities                 []interface{} `json:"capabilities,omitempty"`
 	CreationTime                 int64         `json:"creationTime,omitempty"`
 	ID                           string        `json:"id,omitempty"`
-	IPAssignments                []interface{} `json:"ipAssignments,omitempty"`
+	IPAssignments                []string      `json:"ipAssignments,omitempty"`
 	LastAuthorizedCredential     interface{}   `json:"lastAuthorizedCredential,omitempty"`
 	LastAuthorizedCredentialType string        `json:"lastAuthorizedCredentialType,omitempty"`
 	LastAuthorizedTime           int64         `json:"lastAuthorizedTime,omitempty"`
