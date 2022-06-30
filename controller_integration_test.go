@@ -21,6 +21,13 @@ func TestCreateNetworkAndAuthorize(t *testing.T) {
 	require.Equal(t, "10.244.0.1", newNet.IPAssignmentPools[0].IPRangeStart)
 	require.Equal(t, "10.244.255.254", newNet.IPAssignmentPools[0].IPRangeEnd)
 
+	//get network
+	newNet, err = c.ControllerGetNetwork(newNet.ID)
+	require.NoError(t, err)
+
+	require.Equal(t, "10.244.0.1", newNet.IPAssignmentPools[0].IPRangeStart)
+	require.Equal(t, "10.244.255.254", newNet.IPAssignmentPools[0].IPRangeEnd)
+
 	//check that the network is in the list of networks
 	networkIds, err := c.ControllerListNetworkIds()
 	require.NoError(t, err)

@@ -47,6 +47,12 @@ func (c *Client) GetPublicId() (string, error) {
 	return c.publicId, nil
 }
 
+func (c *Client) ControllerGetNetwork(networkId string) (*Network, error) {
+	url := fmt.Sprintf("/controller/network/%s", networkId)
+	var value Network
+	return &value, c.wrapJSON(url, &value)
+}
+
 func (c *Client) ControllerCreateNetwork(network *Network) (*Network, error) {
 	publicId, err := c.GetPublicId()
 	if err != nil {
