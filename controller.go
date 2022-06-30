@@ -145,6 +145,32 @@ func (c *Client) ControllerListNetworkIds() ([]string, error) {
 	return values, c.wrapJSON("/controller/network", &values)
 }
 
+func (c *Client) ControllerGetNetworkMember(networkId string, memberId string) (*ControllerNetworkMember, error) {
+	url := fmt.Sprintf("/controller/network/%s/member/%s", networkId, memberId)
+	var value ControllerNetworkMember
+	return &value, c.wrapJSON(url, &value)
+}
+
+// Lists network ids on this controller
+func (c *Client) ControllerListNetworkMemberIds(networkId string) ([]string, error) {
+	var values map[string]int
+	url := fmt.Sprintf("/controller/network/%s/member", networkId)
+	err := c.wrapJSON(url, &values)
+	if err != nil {
+		return nil, err
+	}
+
+	ids := make([]string, len(values))
+
+	i := 0
+	for k := range values {
+		ids[i] = k
+		i++
+	}
+
+	return ids, nil
+}
+
 var SaneNetworkDefaults = &Network{
 	Name: "default",
 	Routes: []Route{
